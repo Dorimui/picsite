@@ -4,8 +4,8 @@ const nextConfig = {
         domains: ['localhost','i.dorimu.online','d.dorimu.cn'],
     },
     experimental: {
-        appDir: true,
       },
+    appDir: true,
 };
 
 export default nextConfig;
