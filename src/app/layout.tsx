@@ -25,6 +25,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <script defer src="https://charity.dorimu.cn/script.js" data-website-id="a690e8bf-b690-4c76-87f0-a40c37636fc7"></script>
         </div>
       </body>
     </html>
