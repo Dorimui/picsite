@@ -34,3 +34,4 @@ name: "美图集"
 - [](https://i.dorimu.online/2025/01/31/679c6364867bd.png)
 - [](https://i.dorimu.online/2025/01/31/679c6361eb199.jpg)
 - [](https://i.dorimu.online/2025/01/31/679c63628685a.jpg)
+- [](https://i.dorimu.online/2025/02/03/67a084e0aa793.png)

@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 import { shimmer, toBase64 } from '@/utils/imageUtils'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Lightbox from 'react-spring-lightbox'
-import { FaArrowLeft, FaArrowRight, FaTimes } from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
 
 interface ImageItem {
   title: string
@@ -42,6 +42,8 @@ const ImageItem: React.FC<{ image: ImageItem; index: number; onClick: () => void
 const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [visibleImages, setVisibleImages] = useState<ImageItem[]>(images.slice(0, 9)) 
+  const loaderRef = useRef<HTMLDivElement>(null)
 
   const openLightbox = (index: number) => {
     setCurrentImageIndex(index)
@@ -52,38 +54,34 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
     setIsOpen(false)
   }
 
-  const gotoPrevious = () => {
-    currentImageIndex > 0 && setCurrentImageIndex(currentImageIndex - 1)
-  }
-
-  const gotoNext = () => {
-    currentImageIndex + 1 < images.length && setCurrentImageIndex(currentImageIndex + 1)
-  }
-
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        closeLightbox() 
-      } else if (event.key === 'ArrowLeft') {
-        gotoPrevious()
-      } else if (event.key === 'ArrowRight') {
-        gotoNext()
-      }
-    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleImages((prev) => [
+            ...prev,
+            ...images.slice(prev.length, prev.length + 4)
+          ])
+        }
+      },
+      { threshold: 1.0 }
+    )
 
-    if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown)
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current)
     }
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown)
+      if (loaderRef.current) {
+        observer.unobserve(loaderRef.current)
+      }
     }
-  }, [isOpen, currentImageIndex])
+  }, [images])
 
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {images.map((image, index) => (
+        {visibleImages.map((image, index) => (
           <ImageItem 
             key={index} 
             image={image} 
@@ -93,14 +91,14 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
         ))}
       </div>
 
+      <div ref={loaderRef} className="h-10"></div>
+
       {isOpen && (
         <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/50">
           <Lightbox
             isOpen={isOpen}
-            onPrev={gotoPrevious}
-            onNext={gotoNext}
-            images={images.map((image) => ({ src: image.url, alt: image.title }))}
-            currentIndex={currentImageIndex}
+            images={[{ src: visibleImages[currentImageIndex].url, alt: visibleImages[currentImageIndex].title }]}
+            currentIndex={0}
             onClose={closeLightbox}
             singleClickToZoom 
             className="custom-lightbox"
@@ -120,38 +118,13 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
                 <FaTimes />
               </button>
             )}
-            renderPrevButton={({ canPrev }) => (
-              canPrev && (
-                <button
-                  onClick={gotoPrevious}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-2xl z-50 hover:text-gray-300 transition-colors"
-                  aria-label="Previous image"
-                >
-                  <FaArrowLeft />
-                </button>
-              )
-            )}
-            renderNextButton={({ canNext }) => (
-              canNext && (
-                <button
-                  onClick={gotoNext}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-2xl z-50 hover:text-gray-300 transition-colors"
-                  aria-label="Next image"
-                >
-                  <FaArrowRight />
-                </button>
-              )
-            )}
             renderFooter={() => (
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center text-white z-50 text-shadow">
-                {images[currentImageIndex].title && (
+                {visibleImages[currentImageIndex].title && (
                   <div className="text-lg font-semibold mb-1">
-                    {images[currentImageIndex].title}
+                    {visibleImages[currentImageIndex].title}
                   </div>
                 )}
-                <div className="text-sm">
-                  {`${currentImageIndex + 1} / ${images.length}`}
-                </div>
               </div>
             )}
           />
