@@ -3,6 +3,7 @@
 本站基于开源项目[picsite](https://github.com/Gloridust/picsite)更改  
 
 更改内容：
+- 实现图片展示页的滚动加载功能
 - 单击图片操作改为打开灯箱
 - 为图片添加标题
 - 部分样式调整

@@ -100,6 +100,8 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
             images={[{ src: visibleImages[currentImageIndex].url, alt: visibleImages[currentImageIndex].title }]}
             currentIndex={0}
             onClose={closeLightbox}
+            onNext={() => {}}
+            onPrev={() => {}}
             singleClickToZoom 
             className="custom-lightbox"
             style={{ background: 'transparent' }}
