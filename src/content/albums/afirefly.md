@@ -22,3 +22,5 @@ name: "流萤"
 - [](https://d.dorimu.cn/i/2025/02/03/67a06de3b6b48.jpg)
 - [](https://d.dorimu.cn/i/2025/02/03/67a06de3d4dbb.jpg)
 - [](https://d.dorimu.cn/i/2025/02/03/67a06de3e37fd.jpg)
+- [](https://i.dorimu.top/2025/05/03/68158173411bc.jpg)
+- [](https://i.dorimu.top/2025/05/03/681581735104d.jpg)

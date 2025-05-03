@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['localhost','i.dorimu.online','d.dorimu.cn'],
+        domains: ['localhost','i.dorimu.top','d.dorimu.cn'],
     },
     experimental: {
       },
