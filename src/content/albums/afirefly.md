@@ -1,9 +1,11 @@
 ---
-coverImage: https://i.dorimu.top/2025/01/31/679c635cc4f52.jpg
+coverImage: https://d.dorimu.cn/i/2025/06/21/685658cf45588.jpg
 date: '2024-06-10'
 description: "流萤的美图"
 name: "流萤"
 ---
+- [初恋的味道](https://d.dorimu.cn/i/2025/06/21/685658cf45588.jpg)
+- [](https://d.dorimu.cn/i/2025/06/21/685658cef1be1.jpg)
 - [萤宝的礼物](https://d.dorimu.cn/i/2025/02/16/67b14edab938c.png)
 - [仲夏萤火之约](https://d.dorimu.cn/i/2025/02/16/67b14fd441e70.png)
 - [](https://d.dorimu.cn/i/2025/02/16/67b1500717a75.png)
